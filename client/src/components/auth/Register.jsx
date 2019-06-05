@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+import { register } from "../../actions/auth";
 
-const Register = () => {
+const Register = ({ register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,9 +22,9 @@ const Register = () => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Passwords do not match");
+      toast.warn("🔑 Passwords não são iguais");
     } else {
-      console.log("SUCCESS");
+      register({ name, email, password });
       // Request w/o redux
       //   const newUser = {
       //     ...formData
@@ -44,31 +48,33 @@ const Register = () => {
     }
   };
 
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <>
-      <h1 className="large text-primary">Sign Up</h1>
+      <h1 className="large text-primary">Registrar</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Create Your Account
+        <i className="fas fa-user" /> Crie Sua Conta
       </p>
       <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Nome"
             name="name"
             value={name}
             onChange={e => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
           <input
             type="email"
-            placeholder="Email Address"
+            placeholder="Email"
             name="email"
             value={email}
             onChange={e => onChange(e)}
-            required
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
@@ -80,10 +86,8 @@ const Register = () => {
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
             value={password}
             onChange={e => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -91,18 +95,30 @@ const Register = () => {
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            minLength="6"
             value={password2}
             onChange={e => onChange(e)}
-            required
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input type="submit" className="btn btn-primary" value="Registrar" />
       </form>
       <p className="my-1">
-        Already have an account? <Link to="/login">Sign In</Link>
+        Já possui uma conta? <Link to="/login">Entrar</Link>
       </p>
     </>
   );
 };
-export default Register;
+
+//Type checking
+Register.propTypes = {
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { register }
+)(Register);

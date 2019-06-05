@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/auth";
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -15,21 +18,25 @@ const Login = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    console.log(formData);
+    login(email, password);
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <>
-      <div className="alert alert-danger">Invalid credentials</div>
-      <h1 className="large text-primary">Sign In</h1>
+      <h1 className="large text-primary">Entrar</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Sign into Your Account
+        <i className="fas fa-user" /> Entre na sua conta
       </p>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
             type="email"
-            placeholder="Email Address"
+            placeholder="Email"
             name="email"
             value={email}
             onChange={e => onChange(e)}
@@ -49,9 +56,22 @@ const Login = () => {
         <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <p className="my-1">
-        Don't have an account? <Link to="/register">Sign Up</Link>
+        Não tem conta? <Link to="/register">Registrar</Link>
       </p>
     </>
   );
 };
-export default Login;
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);

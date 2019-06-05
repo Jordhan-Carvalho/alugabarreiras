@@ -6,18 +6,37 @@ const Landing = () => {
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">Adote LOBO</h1>
+          <h1 className="x-large">
+            <i className="fas fa-home hometitle" />{" "}
+            <span className="hometitle">Aluga Barreiras</span>
+          </h1>
           <p className="lead">
-            Create a developer profile/portfolio, share posts and get help from
-            other developers
+            Alugue casas, apartamentos, galpões e qualquer outro tipo de imóvel
+            na região Oeste da Bahia
           </p>
-          <div className="buttons">
-            <Link to="/register" className="btn btn-primary">
-              Sign Up
-            </Link>
-            <Link to="/login" className="btn btn-light">
-              Login
-            </Link>
+          <div className="grid-container">
+            <div className="card">
+              <div className="bg-img">
+                <Link to="/">
+                  <img
+                    src="https://jcconcursos.uol.com.br/media/_versions/noticia/foto-barreiras-ba_widelg.jpg"
+                    alt="cidade barreiras"
+                    className="image"
+                  />
+                </Link>
+              </div>
+            </div>
+            <div className="card">
+              <div className="bg-img">
+                <Link to="/">
+                  <img
+                    src="https://jcconcursos.uol.com.br/media/_versions/noticia/foto-barreiras-ba_widelg.jpg"
+                    alt="cidade barreiras"
+                    className="image"
+                  />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
