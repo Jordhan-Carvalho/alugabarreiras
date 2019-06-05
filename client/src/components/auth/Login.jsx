@@ -27,7 +27,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <>
+    <div className="container">
       <h1 className="large text-primary">Entrar</h1>
       <p className="lead">
         <i className="fas fa-user" /> Entre na sua conta
@@ -58,7 +58,7 @@ const Login = ({ login, isAuthenticated }) => {
       <p className="my-1">
         Não tem conta? <Link to="/register">Registrar</Link>
       </p>
-    </>
+    </div>
   );
 };
 

@@ -178,7 +178,6 @@ img {
 .alert-dark {
   background: var(--dark-color);
   color: #fff;
-  border: #ccc solid 1px;
 }
 
 .btn-danger,
@@ -374,7 +373,6 @@ button {
 
 .profile-top {
   grid-area: top;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -649,4 +647,16 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
+}
+
+/* Lealet */
+#mapid {
+  height: 500px;
+}
+
+/* loader */
+.loader__image {
+  width: 200px;
+  margin: auto;
+  display: block;
 }

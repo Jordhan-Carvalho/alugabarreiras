@@ -9,8 +9,8 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 
 
-export const GET_ANIMALS = 'GET_ANIMALS';
-export const GET_ANIMAL = 'GET_ANIMAL';
-export const ANIMAL_ERROR = 'ANIMAL_ERROR';
-export const ADD_ANIMAL = 'ADD_ANIMAL';
-export const DELETE_ANIMAL = 'DELETE_ANIMAL';
+export const GET_RENTS = 'GET_RENTS';
+export const GET_RENT = 'GET_RENT';
+export const RENT_ERROR = 'RENT_ERROR';
+export const ADD_RENT = 'ADD_RENT';
+export const DELETE_RENT = 'DELETE_RENT';
