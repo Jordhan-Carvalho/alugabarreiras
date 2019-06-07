@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import Routes from './components/routing/Routes';
-import NavBar from './components/layouts/NavBar';
+import Header from './components/layouts/Header';
 import Landing from './components/layouts/Landing';
 import setAuthToken from './utils/setAuthToken';
 import "react-toastify/dist/ReactToastify.css";
@@ -27,7 +27,7 @@ function App() {
   return (
     <>
     <ToastContainer autoClose={3000} />
-    <NavBar />
+    <Header />
     <Switch>
     <Route exact path ="/" component={ Landing } />
     <Route component={Routes} />

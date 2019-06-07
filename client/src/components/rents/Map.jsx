@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import L from "leaflet";
+import { Redirect } from "react-router-dom";
+import ShowPage from "./ShowPage";
 
 const Map = ({ rents }) => {
   useEffect(() => {
@@ -9,7 +11,7 @@ const Map = ({ rents }) => {
       "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoiam9yZGhhbi1jYXJ2YWxobyIsImEiOiJjandnZjlmN2cxNnUzNGJvMzVlM3JrZDY5In0.tFGrxlCyPbq8p9-icwWr5A",
       {
         attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: "mapbox.streets",
         accessToken:
@@ -17,15 +19,47 @@ const Map = ({ rents }) => {
       }
     ).addTo(mymap);
     //Load markers
+
     rents.map((rent, index) => {
-      console.log(rent.lat);
       L.marker([rent.lat, rent.lng])
-        .bindPopup(`hello <h1>${rent.type}<h1>`)
+        .bindPopup(
+          `<h1>${rent.type}</h1><hr/>${rent.price} R$<div>Quartos: ${
+            rent.bedroom
+          }</div><button id="${
+            rent._id
+          }" class="btn btn-primary">Detalhes</button>`
+        )
+        .on("popupopen", function() {
+          L.DomEvent.on(
+            document.getElementById(`${rent._id}`),
+            "click",
+            () => handlePopup(rent._id) // The result of this call is the event handler func.
+          );
+        })
         .addTo(mymap);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rents]);
 
-  return <div id="mapid" />;
+  const [open, setOpen] = useState(false);
+
+  const [rentID, setRentID] = useState("");
+
+  function handleClose() {
+    setOpen(false);
+  }
+
+  const handlePopup = rentId => {
+    setOpen(true);
+    setRentID(rentId);
+  };
+
+  return (
+    <>
+      <div id="mapid" />
+      <ShowPage handleClose={handleClose} open={open} rentID={rentID} />
+    </>
+  );
 };
 
 export default Map;

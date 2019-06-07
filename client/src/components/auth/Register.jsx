@@ -53,7 +53,7 @@ const Register = ({ register, isAuthenticated }) => {
   }
 
   return (
-    <>
+    <div className="container">
       <h1 className="large text-primary">Registrar</h1>
       <p className="lead">
         <i className="fas fa-user" /> Crie Sua Conta
@@ -104,7 +104,7 @@ const Register = ({ register, isAuthenticated }) => {
       <p className="my-1">
         Já possui uma conta? <Link to="/login">Entrar</Link>
       </p>
-    </>
+    </div>
   );
 };
 

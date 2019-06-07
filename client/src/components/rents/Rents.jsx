@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import RightPane from "./RightPane";
 import Map from "./Map";
 import Spinner from "../layouts/Spinner";
 import { getRents } from "../../actions/rent";
+
+import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
+import Box from "@material-ui/core/Box";
 
 const Rents = ({ getRents, rent: { rents, loading } }) => {
   useEffect(() => {
@@ -16,27 +20,19 @@ const Rents = ({ getRents, rent: { rents, loading } }) => {
       {loading ? (
         <Spinner />
       ) : (
-        <>
-          <div className="profile-grid my-1">
-            <div className="profile-top bg-primary p-1">
-              <div>
-                <Map rents={rents} />
-              </div>
-            </div>
-          </div>
-          <div className="profile-about bg-light p-2">
-            <h2 className="text-primary">Jordhan</h2>
-            <p>BIO BIO BIO</p>
-            <div className="line" />
+        <Grid container>
+          <Grid item xs={12} sm={10} style={{ backgroundColor: "black" }}>
+            <Box height="93.2vh">
+              <Map rents={rents} />
+            </Box>
+          </Grid>
 
-            <h2 className="text-primary">Habilidades</h2>
-            <div className="skills">
-              <div className="p-1">
-                <i className="fa fa-check" /> LUL
-              </div>
-            </div>
-          </div>
-        </>
+          <Hidden xsDown>
+            <Grid item sm={2} style={{ paddingLeft: 1 }}>
+              <RightPane rents={rents} />
+            </Grid>
+          </Hidden>
+        </Grid>
       )}
     </>
   );
