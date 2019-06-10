@@ -55,3 +55,35 @@ export const deleteRent = (rentId) => async dispatch => {
     }
 }
 }
+
+// Add rent
+export const addRent = (formData, history) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    
+        const res = await axios.post('/api/rents', formData, config);
+    
+        dispatch({
+            type: ADD_RENT,
+            payload: res.data
+        });
+    
+        toast.success("😄 Aluguel adicionado")
+    
+        history.push('/');
+
+    } catch (err) {
+        dispatch({
+            type: RENT_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+        // console.log(err.response)
+        err.response.data.errors.map(erro => console.log(erro.msg))
+  
+        toast.error(`⛔ Preencha os campos obrigatórios`)
+    }
+};

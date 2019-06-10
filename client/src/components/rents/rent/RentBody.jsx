@@ -20,10 +20,16 @@ const RentBody = ({ classes, rent }) => {
                   <img src={rent.image} alt="rent" />
                 </div>
                 <div>
-                  <img src={rent.image} alt="rent" />
+                  <img
+                    src={rent.image2 ? rent.image2 : rent.image}
+                    alt="rent"
+                  />
                 </div>
                 <div>
-                  <img src={rent.image} alt="rent" />
+                  <img
+                    src={rent.image3 ? rent.image3 : rent.image}
+                    alt="rent"
+                  />
                 </div>
               </Carousel>
             </Paper>

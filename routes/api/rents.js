@@ -55,6 +55,9 @@ router.post(
       check('city', 'City is required')
         .not()
         .isEmpty(),
+      check('state', 'Estado is required')
+        .not()
+        .isEmpty(),
       check('description', 'description is required')
         .not()
         .isEmpty(),
@@ -113,6 +116,7 @@ router.post(
         garage,
         number,
         city,
+        state,
         area,
         petFriendly,
         lat,
@@ -139,6 +143,7 @@ router.post(
         garage,
         number,
         city,
+        state,
         area,
         petFriendly,
         lat,

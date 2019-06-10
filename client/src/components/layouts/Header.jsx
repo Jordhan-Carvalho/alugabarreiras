@@ -14,7 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import MenuIcon from "@material-ui/icons/Menu";
+import AddIcon from "@material-ui/icons/Add";
 
 const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -67,6 +67,17 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
           <Typography variant="h6" className={classes.title}>
             Aluga Brasil
           </Typography>
+          <Tooltip title="Adicionar Aluguel" aria-label="Adicionar Aluguel">
+            <IconButton
+              aria-label="Add rent"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+
           <Button
             aria-controls="simple-menu2"
             aria-haspopup="true"

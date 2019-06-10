@@ -21,7 +21,7 @@ const Rents = ({ getRents, rent: { rents, loading } }) => {
         <Spinner />
       ) : (
         <Grid container>
-          <Grid item xs={12} sm={10} style={{ backgroundColor: "black" }}>
+          <Grid item xs={12} sm={10}>
             <Box height="93.2vh">
               <Map rents={rents} />
             </Box>

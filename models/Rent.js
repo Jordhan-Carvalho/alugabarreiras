@@ -8,6 +8,7 @@ const RentSchema = new mongoose.Schema({
   authorName: String,
   type: { type: String, required: true },
   city: { type: String, required: true },
+  state: { type: String, required: true },
   image: { type: String, required: true },
   image2: String,
   image3: String,

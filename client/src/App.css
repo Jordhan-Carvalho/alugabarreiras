@@ -653,6 +653,9 @@ button {
 #mapid {
   height: 100%;
 }
+#mapid2 {
+  height: 100%;
+}
 
 /* loader */
 .loader__image {
