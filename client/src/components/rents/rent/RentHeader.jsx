@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { deleteRent } from "../../actions/rent";
+import { deleteRent } from "../../../actions/rent";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";

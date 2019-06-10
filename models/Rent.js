@@ -20,7 +20,7 @@ const RentSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   bedroom: { type: String, required: true },
   bathroom: { type: String, required: true },
-  area: String,
+  area: { type: String, required: true },
   garage: { type: String, required: true },
   petFriendly: String,
   tel: String,

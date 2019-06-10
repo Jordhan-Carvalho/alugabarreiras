@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Spinner from "../layouts/Spinner";
+import Spinner from "../../layouts/Spinner";
 import RentHeader from "./RentHeader";
 import RentBody from "./RentBody";
-import { getRentById } from "../../actions/rent";
+import { getRentById } from "../../../actions/rent";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
@@ -28,13 +28,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary
   },
   img: {
-    height: "50vh",
+    maxHeight: "55vh",
     maxWidth: 800,
     overflow: "hidden",
     display: "block",
     width: "100%",
-    border: 5,
-    textAlign: "center"
+    marginLeft: "auto",
+    marginRight: "auto"
   }
 }));
 

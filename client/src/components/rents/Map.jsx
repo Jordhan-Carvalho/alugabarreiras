@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import L from "leaflet";
-import { Redirect } from "react-router-dom";
-import ShowPage from "./ShowPage";
+import ShowPage from "./rent/ShowPage";
 
 const Map = ({ rents }) => {
   useEffect(() => {
@@ -23,11 +22,11 @@ const Map = ({ rents }) => {
     rents.map((rent, index) => {
       L.marker([rent.lat, rent.lng])
         .bindPopup(
-          `<h1>${rent.type}</h1><hr/>${rent.price} R$<div>Quartos: ${
-            rent.bedroom
-          }</div><button id="${
+          `<h1>${rent.type}</h1><hr/><h3>R$ ${
+            rent.price
+          }</h3><br/><button id="${
             rent._id
-          }" class="btn btn-primary">Detalhes</button>`
+          }" class="btn btn-primary">Ver</button>`
         )
         .on("popupopen", function() {
           L.DomEvent.on(

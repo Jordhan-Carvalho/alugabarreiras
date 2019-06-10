@@ -79,6 +79,9 @@ router.post(
       check('garage', 'garage is required')
         .not()
         .isEmpty(),
+      check('area', 'area is required')
+        .not()
+        .isEmpty(),
       check('lat', 'lat is required')
         .not()
         .isEmpty(),
