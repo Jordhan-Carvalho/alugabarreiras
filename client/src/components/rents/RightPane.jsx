@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import ShowPage from "./rent/ShowPage";
 
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
@@ -25,34 +26,65 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RightPane = ({ rents }) => {
+const RightPane = ({ rents, path }) => {
   const classes = useStyles();
 
+  const defineCity = (rents, path) => {
+    let cityRent;
+    if (path === "/lem") {
+      cityRent = rents.filter(rent => rent.city === "LEM");
+    } else if (path === "/barreiras") {
+      cityRent = rents.filter(rent => rent.city === "Barreiras");
+    }
+    return cityRent;
+  };
+
+  const cityRents = defineCity(rents, path);
+
+  //Show page config
+  const [open, setOpen] = useState(false);
+
+  const [rentID, setRentID] = useState("");
+
+  function handleClose() {
+    setOpen(false);
+  }
+
+  const handlePopup = rentId => {
+    setOpen(true);
+    setRentID(rentId);
+  };
+  // Show page config end
+
   return (
-    <div className={classes.root}>
-      <GridList cellHeight={180} className={classes.gridList} cols={1}>
-        <GridListTile key="Subheader" cols={1} style={{ height: "auto" }}>
-          <ListSubheader component="div">Destaques</ListSubheader>
-        </GridListTile>
-        {rents.map(rent => (
-          <GridListTile key={rent.lat}>
-            <img src={rent.image} alt={rent.type} />
-            <GridListTileBar
-              title={rent.type}
-              subtitle={<span>R$ {rent.price}</span>}
-              actionIcon={
-                <IconButton
-                  aria-label={`info about ${rent.type}`}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
+    <>
+      <div className={classes.root}>
+        <GridList cellHeight={180} className={classes.gridList} cols={1}>
+          <GridListTile key="Subheader" cols={1} style={{ height: "auto" }}>
+            <ListSubheader component="div">Destaques</ListSubheader>
           </GridListTile>
-        ))}
-      </GridList>
-    </div>
+          {cityRents.map(rent => (
+            <GridListTile key={rent._id}>
+              <img src={rent.image} alt={rent.type} />
+              <GridListTileBar
+                title={rent.type}
+                subtitle={<span>R$ {rent.price}</span>}
+                actionIcon={
+                  <IconButton
+                    aria-label={`info about ${rent.type}`}
+                    className={classes.icon}
+                    onClick={() => handlePopup(rent._id)}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
+      <ShowPage handleClose={handleClose} open={open} rentID={rentID} />
+    </>
   );
 };
 

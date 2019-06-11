@@ -2,10 +2,49 @@ import React, { useEffect, useState } from "react";
 import L from "leaflet";
 import ShowPage from "./rent/ShowPage";
 
-const Map = ({ rents }) => {
+const Map = ({ rents, path }) => {
   useEffect(() => {
+    // Create city data
+    let cityRent;
+    let cityCoord;
+    if (path === "/lem") {
+      cityRent = rents.filter(rent => rent.city === "LEM");
+      cityCoord = [-12.0905, -45.7804];
+    } else if (path === "/barreiras") {
+      cityRent = rents.filter(rent => rent.city === "Barreiras");
+      cityCoord = [-12.147, -44.997];
+    }
+    const cityResult = [cityRent, cityCoord];
+
+    // Create icons
+
+    const LeafIcon = L.Icon.extend({
+      options: {
+        shadowUrl:
+          "http://dermvetolympia.com/wp-content/uploads/revslider/petowners_slide/shadow.png",
+        iconSize: [30, 35], // size of the icon
+        shadowSize: [40, 45], // size of the shadow
+        iconAnchor: [15, 35], // point of the icon which will correspond to marker's location
+        shadowAnchor: [12, 50], // the same for the shadow
+        popupAnchor: [12, -35] // point from which the popup should open relative to the iconAnchor
+      }
+    });
+    const galpaoIcon = new LeafIcon({
+        iconUrl: "https://i.imgur.com/QM4NdW4.png"
+      }),
+      houseIcon = new LeafIcon({ iconUrl: "https://i.imgur.com/gZEJHpx.png" }),
+      comercialIcon = new LeafIcon({
+        iconUrl: "https://i.imgur.com/Dd53WJ6.png"
+      }),
+      apartmentIcon = new LeafIcon({
+        iconUrl: "https://i.imgur.com/Cy0yen5.png"
+      });
+
     // create map
-    const mymap = L.map("mapid").setView([-12.147, -44.998], 14);
+    const mymap = L.map("mapid", { attributionControl: false }).setView(
+      cityResult[1],
+      15
+    );
     L.tileLayer(
       "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoiam9yZGhhbi1jYXJ2YWxobyIsImEiOiJjandnZjlmN2cxNnUzNGJvMzVlM3JrZDY5In0.tFGrxlCyPbq8p9-icwWr5A",
       {
@@ -19,8 +58,21 @@ const Map = ({ rents }) => {
     ).addTo(mymap);
     //Load markers
 
-    rents.map((rent, index) => {
-      L.marker([rent.lat, rent.lng])
+    cityResult[0].map((rent, index) => {
+      let markerIcon;
+      if (rent.type === "Comercial") {
+        markerIcon = comercialIcon;
+      } else if (rent.type === "Casa") {
+        markerIcon = houseIcon;
+      } else if (rent.type === "Galpão") {
+        markerIcon = galpaoIcon;
+      } else if (rent.type === "Apartamento") {
+        markerIcon = apartmentIcon;
+      } else {
+        markerIcon = houseIcon;
+      }
+
+      L.marker([rent.lat, rent.lng], { icon: markerIcon })
         .bindPopup(
           `<h1>${rent.type}</h1><hr/><h3>R$ ${
             rent.price

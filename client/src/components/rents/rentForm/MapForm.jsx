@@ -4,9 +4,57 @@ import L from "leaflet";
 const MapForm = ({ setFormData, formData }) => {
   const [markerData, setMarkerData] = useState({});
 
+  // City coord
+  const coord = city => {
+    if (city === "Barreiras") {
+      return [-12.147, -44.997];
+    } else if (city === "LEM") {
+      return [-12.0905, -45.7804];
+    } else {
+      return [-12.147, -44.997];
+    }
+  };
+
   useEffect(() => {
+    // Create icons
+    const LeafIcon = L.Icon.extend({
+      options: {
+        shadowUrl:
+          "http://dermvetolympia.com/wp-content/uploads/revslider/petowners_slide/shadow.png",
+        iconSize: [30, 35], // size of the icon
+        shadowSize: [40, 45], // size of the shadow
+        iconAnchor: [15, 35], // point of the icon which will correspond to marker's location
+        shadowAnchor: [12, 50], // the same for the shadow
+        popupAnchor: [12, -35] // point from which the popup should open relative to the iconAnchor
+      }
+    });
+    const galpaoIcon = new LeafIcon({
+        iconUrl: "https://i.imgur.com/QM4NdW4.png"
+      }),
+      houseIcon = new LeafIcon({ iconUrl: "https://i.imgur.com/gZEJHpx.png" }),
+      comercialIcon = new LeafIcon({
+        iconUrl: "https://i.imgur.com/Dd53WJ6.png"
+      }),
+      apartmentIcon = new LeafIcon({
+        iconUrl: "https://i.imgur.com/Cy0yen5.png"
+      });
+    let markerIcon;
+    if (formData.type === "Comercial") {
+      markerIcon = comercialIcon;
+    } else if (formData.type === "Casa") {
+      markerIcon = houseIcon;
+    } else if (formData.type === "Galpão") {
+      markerIcon = galpaoIcon;
+    } else if (formData.type === "Apartamento") {
+      markerIcon = apartmentIcon;
+    } else {
+      markerIcon = houseIcon;
+    }
     // create map
-    let mymap2 = L.map("mapid2").setView([-12.147, -44.997], 13);
+    let mymap2 = L.map("mapid2", { attributionControl: false }).setView(
+      coord(formData.city),
+      13
+    );
     L.tileLayer(
       "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoiam9yZGhhbi1jYXJ2YWxobyIsImEiOiJjandnZjlmN2cxNnUzNGJvMzVlM3JrZDY5In0.tFGrxlCyPbq8p9-icwWr5A",
       {
@@ -22,7 +70,9 @@ const MapForm = ({ setFormData, formData }) => {
     let newMarker2;
     function onMapClick(e) {
       if (newMarker2 === undefined) {
-        newMarker2 = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap2);
+        newMarker2 = L.marker([e.latlng.lat, e.latlng.lng], {
+          icon: markerIcon
+        }).addTo(mymap2);
         setMarkerData({
           ...newMarker2
         });
@@ -33,7 +83,9 @@ const MapForm = ({ setFormData, formData }) => {
         });
       } else {
         newMarker2.remove();
-        newMarker2 = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap2);
+        newMarker2 = L.marker([e.latlng.lat, e.latlng.lng], {
+          icon: markerIcon
+        }).addTo(mymap2);
         setMarkerData({
           ...newMarker2
         });

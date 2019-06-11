@@ -21,17 +21,50 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
   const [anchorEl2, setAnchorEl2] = useState(null);
 
   const guestLinks = (
+    <Tooltip title="Adicionar Aluguel" aria-label="Adicionar Aluguel">
+      <Link to="/login">
+        <IconButton
+          aria-label="Add rent"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AddIcon />
+        </IconButton>
+      </Link>
+    </Tooltip>
+  );
+  const authLinks = (
+    <Tooltip title="Adicionar Aluguel" aria-label="Adicionar Aluguel">
+      <Link to="/new">
+        <IconButton
+          aria-label="Add rent"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AddIcon />
+        </IconButton>
+      </Link>
+    </Tooltip>
+  );
+
+  const guestUserLinks = (
     <>
       <MenuItem>
-        <Link to="/register">Registrar</Link>
+        <Link style={{ color: "black" }} to="/register">
+          Registrar
+        </Link>
       </MenuItem>
       <MenuItem>
-        <Link to="/login">Entrar</Link>
+        <Link style={{ color: "black" }} to="/login">
+          Entrar
+        </Link>
       </MenuItem>
     </>
   );
 
-  const authLinks = <MenuItem onClick={logout}>Sair</MenuItem>;
+  const authUserLinks = <MenuItem onClick={logout}>Sair</MenuItem>;
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -55,6 +88,9 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
     },
     title: {
       flexGrow: 1
+    },
+    link: {
+      color: "black !important"
     }
   }));
 
@@ -65,18 +101,10 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Aluga Brasil
+            <Link to="/">Aluga Brasil</Link>
           </Typography>
-          <Tooltip title="Adicionar Aluguel" aria-label="Adicionar Aluguel">
-            <IconButton
-              aria-label="Add rent"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
+
+          {!loading && <>{isAuthenticated ? authLinks : guestLinks}</>}
 
           <Button
             aria-controls="simple-menu2"
@@ -93,8 +121,16 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
             open={Boolean(anchorEl2)}
             onClose={handleClose}
           >
-            <MenuItem>Barreiras</MenuItem>
-            <MenuItem>LEM</MenuItem>
+            <MenuItem>
+              <a href="/barreiras" className={classes.link}>
+                Barreiras
+              </a>
+            </MenuItem>
+            <MenuItem>
+              <a href="/lem" className={classes.link}>
+                LEM
+              </a>
+            </MenuItem>
           </Menu>
 
           <Tooltip title="Usuario" aria-label="Usuario">
@@ -115,7 +151,9 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            {!loading && <>{isAuthenticated ? authLinks : guestLinks}</>}
+            {!loading && (
+              <>{isAuthenticated ? authUserLinks : guestUserLinks}</>
+            )}
           </Menu>
         </Toolbar>
       </AppBar>

@@ -10,7 +10,8 @@ import PrivateRoute from "../routing/PrivateRoute";
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/alugue" component={Rents} />
+      <Route exact path="/barreiras" component={Rents} />
+      <Route path="/lem" component={Rents} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
       <PrivateRoute exact path="/new" component={AddForm} />

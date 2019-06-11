@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import Box from "@material-ui/core/Box";
 
-const Rents = ({ getRents, rent: { rents, loading } }) => {
+const Rents = ({ getRents, rent: { rents, loading }, match: { path } }) => {
   useEffect(() => {
     getRents();
   }, [getRents]);
@@ -23,13 +23,13 @@ const Rents = ({ getRents, rent: { rents, loading } }) => {
         <Grid container>
           <Grid item xs={12} sm={10}>
             <Box height="93.2vh">
-              <Map rents={rents} />
+              <Map rents={rents} path={path} />
             </Box>
           </Grid>
 
           <Hidden xsDown>
             <Grid item sm={2} style={{ paddingLeft: 1 }}>
-              <RightPane rents={rents} />
+              <RightPane rents={rents} path={path} />
             </Grid>
           </Hidden>
         </Grid>

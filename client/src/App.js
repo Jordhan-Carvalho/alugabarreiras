@@ -29,7 +29,7 @@ function App() {
     <ToastContainer autoClose={3000} />
     <Header />
     <Switch>
-    <Route exact path ="/" component={ Landing } />
+    <Route exact path="/" component={Landing} />
     <Route component={Routes} />
     </Switch>
     </>
