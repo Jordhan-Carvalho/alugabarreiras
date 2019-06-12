@@ -22,7 +22,7 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
 
   const guestLinks = (
     <Tooltip title="Adicionar Aluguel" aria-label="Adicionar Aluguel">
-      <Link to="/login">
+      <Link to="/login" style={{ color: "white" }}>
         <IconButton
           aria-label="Add rent"
           aria-controls="menu-appbar"

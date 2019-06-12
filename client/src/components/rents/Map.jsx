@@ -20,8 +20,7 @@ const Map = ({ rents, path }) => {
 
     const LeafIcon = L.Icon.extend({
       options: {
-        shadowUrl:
-          "http://dermvetolympia.com/wp-content/uploads/revslider/petowners_slide/shadow.png",
+        shadowUrl: "https://i.imgur.com/kV6zEFS.png",
         iconSize: [30, 35], // size of the icon
         shadowSize: [40, 45], // size of the shadow
         iconAnchor: [15, 35], // point of the icon which will correspond to marker's location
