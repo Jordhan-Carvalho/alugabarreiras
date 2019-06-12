@@ -29,7 +29,7 @@ const Register = ({ register, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/barreiras" />;
   }
 
   return (
@@ -57,8 +57,8 @@ const Register = ({ register, isAuthenticated }) => {
             onChange={e => onChange(e)}
           />
           <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
+            Esse site faz uso do Gravatar para imagens de perfil, se assim
+            desejar, utilize o email do Gravatar
           </small>
         </div>
         <div className="form-group">

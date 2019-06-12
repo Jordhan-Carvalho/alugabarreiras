@@ -57,7 +57,7 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
         </Link>
       </MenuItem>
       <MenuItem>
-        <Link sstyle={{ color: "black", textDecoration: "none" }} to="/login">
+        <Link style={{ color: "black", textDecoration: "none" }} to="/login">
           Entrar
         </Link>
       </MenuItem>

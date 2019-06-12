@@ -15,6 +15,7 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const config = {
   bucketName: process.env.REACT_APP_AWS_BUCKET_NAME,
@@ -43,28 +44,39 @@ const Carac = ({
   onChange,
   setFormData,
   formData,
-  formData: { bedroom, bathroom, garage, area, petFriendly, description }
+  formData: {
+    bedroom,
+    bathroom,
+    garage,
+    area,
+    petFriendly,
+    description,
+    image,
+    image2,
+    imageLoading
+  }
 }) => {
   const classes = useStyles();
 
-  const uploadImage = async e => {
-    try {
-      const resp = await S3Client.uploadFile(e.target.files[0]);
-      setFormData({ ...formData, image: resp.location });
-      toast.success("😄 Upload com sucesso!!");
-    } catch (error) {
-      console.log(error);
-      toast.error("⛔ Upload failed");
+  const uploadImage = async (e, imageNumber) => {
+    let imageN;
+    if (imageNumber === "2") {
+      imageN = "image2";
+    } else {
+      imageN = "image";
     }
-  };
-
-  const uploadImage2 = async e => {
+    setFormData({ ...formData, imageLoading: true });
     try {
       const resp = await S3Client.uploadFile(e.target.files[0]);
-      setFormData({ ...formData, image2: resp.location });
+      setFormData({
+        ...formData,
+        [imageN]: resp.location,
+        imageLoading: false
+      });
       toast.success("😄 Upload com sucesso!!");
     } catch (error) {
       console.log(error);
+      setFormData({ ...formData, imageLoading: false });
       toast.error("⛔ Upload failed");
     }
   };
@@ -161,50 +173,61 @@ const Carac = ({
             onChange={e => onChange(e)}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <input
-            accept="image/*"
-            id="raised-button-file"
-            style={{ display: "none" }}
-            multiple
-            type="file"
-            onChange={e => uploadImage(e)}
-          />
-          <label htmlFor="raised-button-file">
-            <Button
-              raised="true"
-              component="span"
-              variant="contained"
-              color="default"
-              className={classes.button}
-            >
-              Faixada
-              <CloudUploadIcon className={classes.rightIcon} />
-            </Button>
-          </label>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <input
-            accept="image/*"
-            id="raised-button-file1"
-            style={{ display: "none" }}
-            multiple
-            type="file"
-            onChange={e => uploadImage2(e)}
-          />
-          <label htmlFor="raised-button-file1">
-            <Button
-              raised="true"
-              component="span"
-              variant="contained"
-              color="default"
-              className={classes.button}
-            >
-              Interior
-              <CloudUploadIcon className={classes.rightIcon} />
-            </Button>
-          </label>
-        </Grid>
+
+        {imageLoading ? (
+          <Grid item xs={12} md={6}>
+            <CircularProgress className={classes.progress} color="secondary" />{" "}
+            <p>Por Favor Aguarde...</p>
+          </Grid>
+        ) : (
+          <>
+            <Grid item xs={12} md={6}>
+              <input
+                accept="image/*"
+                id="raised-button-file"
+                style={{ display: "none" }}
+                multiple
+                type="file"
+                onChange={e => uploadImage(e)}
+              />
+              <label htmlFor="raised-button-file">
+                <Button
+                  raised="true"
+                  component="span"
+                  variant="contained"
+                  color={image === "" ? "default" : "primary"}
+                  className={classes.button}
+                >
+                  Faixada *
+                  <CloudUploadIcon className={classes.rightIcon} />
+                </Button>
+              </label>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <input
+                accept="image/*"
+                id="raised-button-file1"
+                style={{ display: "none" }}
+                multiple
+                type="file"
+                onChange={(e, imageNumber) => uploadImage(e, "2")}
+              />
+              <label htmlFor="raised-button-file1">
+                <Button
+                  raised="true"
+                  component="span"
+                  variant="contained"
+                  color={image2 === "" ? "default" : "primary"}
+                  className={classes.button}
+                >
+                  Interior
+                  <CloudUploadIcon className={classes.rightIcon} />
+                </Button>
+              </label>
+            </Grid>
+          </>
+        )}
+
         <Grid item xs={12}>
           <TextField
             required

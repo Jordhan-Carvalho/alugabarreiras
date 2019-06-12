@@ -61,6 +61,8 @@ const AddForm = ({ addRent, history }) => {
     city: "",
     state: "",
     image: "",
+    image2: "",
+    imageLoading: false,
     price: "",
     street: "",
     district: "",
