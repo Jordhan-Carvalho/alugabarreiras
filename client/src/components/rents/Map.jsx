@@ -58,7 +58,7 @@ const Map = ({ rents, path }) => {
     ).addTo(mymap);
     //Load markers
 
-    cityResult[0].map((rent, index) => {
+    cityResult[0].map(rent => {
       let markerIcon;
       if (rent.type === "Comercial") {
         markerIcon = comercialIcon;

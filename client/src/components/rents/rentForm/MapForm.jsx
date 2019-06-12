@@ -94,7 +94,6 @@ const MapForm = ({ setFormData, formData }) => {
           lat: newMarker2._latlng.lat,
           lng: newMarker2._latlng.lng
         });
-        console.log(newMarker2._latlng);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

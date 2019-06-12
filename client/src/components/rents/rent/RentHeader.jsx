@@ -43,7 +43,8 @@ const RentHeader = ({
         auth.user._id === rent.author ? (
           <Button
             variant="contained"
-            color="secondary"
+            style={{ backgroundColor: "#d32f2f" }}
+            color="inherit"
             className={classes.button}
             onClick={deleteRentById}
           >

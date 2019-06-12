@@ -25,26 +25,6 @@ const Register = ({ register, isAuthenticated }) => {
       toast.warn("🔑 Passwords não são iguais");
     } else {
       register({ name, email, password });
-      // Request w/o redux
-      //   const newUser = {
-      //     ...formData
-      //   };
-      //   // sending data
-      //   try {
-      //     const config = {
-      //       headers: {
-      //         "Content-Type": "application/json"
-      //       }
-      //     };
-
-      //     const body = JSON.stringify(newUser);
-
-      //     // proxy localhost setted on the package.json
-      //     const res = await axios.post("/api/users", body, config);
-      //     console.log(res.data);
-      //   } catch (err) {
-      //     console.error(err.response.data);
-      //   }
     }
   };
 

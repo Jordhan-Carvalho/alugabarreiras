@@ -36,7 +36,7 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
   );
   const authLinks = (
     <Tooltip title="Adicionar Aluguel" aria-label="Adicionar Aluguel">
-      <Link to="/new">
+      <Link to="/new" style={{ color: "white" }}>
         <IconButton
           aria-label="Add rent"
           aria-controls="menu-appbar"
@@ -52,12 +52,12 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
   const guestUserLinks = (
     <>
       <MenuItem>
-        <Link style={{ color: "black" }} to="/register">
+        <Link style={{ color: "black", textDecoration: "none" }} to="/register">
           Registrar
         </Link>
       </MenuItem>
       <MenuItem>
-        <Link style={{ color: "black" }} to="/login">
+        <Link sstyle={{ color: "black", textDecoration: "none" }} to="/login">
           Entrar
         </Link>
       </MenuItem>
@@ -90,8 +90,10 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
       flexGrow: 1
     },
     link: {
-      color: "black !important"
-    }
+      color: "black",
+      textDecoration: "none"
+    },
+    linkTo: { color: "white", textDecoration: "none" }
   }));
 
   const classes = useStyles();
@@ -101,7 +103,9 @@ const Header = ({ logout, auth: { isAuthenticated, loading } }) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Link to="/">Aluga Brasil</Link>
+            <Link to="/" className={classes.linkTo}>
+              Aluga Brasil
+            </Link>
           </Typography>
 
           {!loading && <>{isAuthenticated ? authLinks : guestLinks}</>}
