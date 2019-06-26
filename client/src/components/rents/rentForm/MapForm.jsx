@@ -67,6 +67,13 @@ const MapForm = ({ setFormData, formData }) => {
     // create mark
     mymap2.on("click", onMapClick);
     let newMarker2;
+    // If previous marker, load marker
+    if (formData.lat && formData.lng) {
+      newMarker2 = L.marker([formData.lat, formData.lng], {
+        icon: markerIcon
+      }).addTo(mymap2);
+    }
+    // create new mark
     function onMapClick(e) {
       if (newMarker2 === undefined) {
         newMarker2 = L.marker([e.latlng.lat, e.latlng.lng], {

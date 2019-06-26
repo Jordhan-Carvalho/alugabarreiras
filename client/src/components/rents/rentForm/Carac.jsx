@@ -59,6 +59,10 @@ const Carac = ({
   const classes = useStyles();
 
   const uploadImage = async (e, imageNumber) => {
+    if (e.target.files[0].size > 2200000) {
+      return toast.error("Foto não pode ser maior que 2mb");
+    }
+
     let imageN;
     if (imageNumber === "2") {
       imageN = "image2";
